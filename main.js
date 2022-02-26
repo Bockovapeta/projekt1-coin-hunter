@@ -35,25 +35,36 @@ pozicePanacek();
 
 function stiskKlavesy(udalost) {
 	console.log(udalost.key);
+	let panacek = document.querySelector('#panacek');
 
 	if (udalost.key === 'ArrowRight') {
-		document.querySelector('#panacek').style.left = (panacekX + 5 + 'px');
-		return panacekX;
+		panacek.src = 'obrazky/panacek-vpravo.png';
+		panacekX = panacekX + 3;
+		panacek.style.left = (panacekX++ + 'px');
+
+
 	}
 
 	else if (udalost.key === 'ArrowLeft') {
-		document.querySelector('#panacek').style.left = (panacekX - 5 + 'px');
+		panacek.src = 'obrazky/panacek-vlevo.png';
+		panacekX = panacekX - 3;
+		panacek.style.left = (panacekX-- + 'px');
 	}
 
 	else if (udalost.key === 'ArrowUp') {
-		document.querySelector('#panacek').style.top = (panacekY - 5 + 'px');
+		panacek.src = 'obrazky/panacek-nahoru.png';
+		panacekY = panacekY - 3;
+		panacek.style.top = (panacekY-- + 'px');
 	}
 
 	else {
-		document.querySelector('#panacek').style.top = (panacekY + 5 + 'px');
+		panacek.src = 'obrazky/panacek.png';
+		panacekY = panacekY + 3;
+		panacek.style.top = (panacekY++ + 'px');
 	}
 
 }
+
 
 
 

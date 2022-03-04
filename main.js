@@ -14,6 +14,8 @@ let panacekY = Math.floor((Math.random() * 600) + 1);
 let minceX = Math.floor((Math.random() * 1500) + 1);
 let minceY = Math.floor((Math.random() * 600) + 1);
 
+let score = document.querySelector("#score");
+
 function pozicePanacek() {
 
 
@@ -39,7 +41,7 @@ function stiskKlavesy(udalost) {
 
 	if (udalost.key === 'ArrowRight') {
 		panacek.src = 'obrazky/panacek-vpravo.png';
-		panacekX = panacekX + 3;
+		panacekX = panacekX + 4;
 		panacek.style.left = (panacekX++ + 'px');
 
 
@@ -47,24 +49,43 @@ function stiskKlavesy(udalost) {
 
 	else if (udalost.key === 'ArrowLeft') {
 		panacek.src = 'obrazky/panacek-vlevo.png';
-		panacekX = panacekX - 3;
+		panacekX = panacekX - 4;
 		panacek.style.left = (panacekX-- + 'px');
 	}
 
 	else if (udalost.key === 'ArrowUp') {
 		panacek.src = 'obrazky/panacek-nahoru.png';
-		panacekY = panacekY - 3;
+		panacekY = panacekY - 4;
 		panacek.style.top = (panacekY-- + 'px');
 	}
 
 	else {
 		panacek.src = 'obrazky/panacek.png';
-		panacekY = panacekY + 3;
+		panacekY = panacekY + 4;
 		panacek.style.top = (panacekY++ + 'px');
 	}
 
 }
 
+function zvuk() {
+	document.querySelector("#hudba").play();
+
+}
 
 
+
+
+if (minceX === panacekX || minceY === panacekY) {
+	poziceMince();
+	document.querySelector("#hudba").pause();
+	document.querySelector('#zvukmince').play();
+	document.querySelector("#hudba").play();
+	score.textContent = '' + 1;
+}
+
+if (score == 5) {
+	document.querySelector("#hudba").pause();
+	document.querySelector("#zvukfanfara").play();
+	document.querySelector("#hudba").play();
+}
 

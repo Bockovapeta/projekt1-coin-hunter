@@ -16,6 +16,7 @@ let minceY = Math.floor((Math.random() * 600) + 1);
 
 let score = document.querySelector("#score");
 
+
 function pozicePanacek() {
 
 
@@ -33,54 +34,48 @@ function poziceMince() {
 
 poziceMince();
 pozicePanacek();
+let panacekSirka = 64;
+let panacekVyska = 70;
+let minceSirka = 36;
+let minceVyska = 36;
 
-
-function stiskKlavesy(udalost) {
-	console.log(udalost.key);
-	let panacek = document.querySelector('#panacek');
-
-	if (udalost.key === 'ArrowRight') {
-		panacek.src = 'obrazky/panacek-vpravo.png';
-		panacekX = panacekX + 4;
-		panacek.style.left = (panacekX++ + 'px');
-
-
-	}
-
-	else if (udalost.key === 'ArrowLeft') {
-		panacek.src = 'obrazky/panacek-vlevo.png';
-		panacekX = panacekX - 4;
-		panacek.style.left = (panacekX-- + 'px');
-	}
-
-	else if (udalost.key === 'ArrowUp') {
-		panacek.src = 'obrazky/panacek-nahoru.png';
-		panacekY = panacekY - 4;
-		panacek.style.top = (panacekY-- + 'px');
-	}
-
-	else {
-		panacek.src = 'obrazky/panacek.png';
-		panacekY = panacekY + 4;
-		panacek.style.top = (panacekY++ + 'px');
-	}
-
-}
-
-function zvuk() {
-	document.querySelector("#hudba").play();
-
-}
-
-
-
-
-if (minceX === panacekX || minceY === panacekY) {
-	poziceMince();
+if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
+	score.textContent = '' + 1;
 	document.querySelector("#hudba").pause();
 	document.querySelector('#zvukmince').play();
 	document.querySelector("#hudba").play();
-	score.textContent = '' + 1;
+	poziceMince();
+}
+
+else {
+	function stiskKlavesy(udalost) {
+		console.log(udalost.key);
+		let panacek = document.querySelector('#panacek');
+
+		if (udalost.key === 'ArrowRight') {
+			panacek.src = 'obrazky/panacek-vpravo.png';
+			panacekX = panacekX + 4;
+			panacek.style.left = (panacekX++ + 'px');
+		}
+
+		else if (udalost.key === 'ArrowLeft') {
+			panacek.src = 'obrazky/panacek-vlevo.png';
+			panacekX = panacekX - 4;
+			panacek.style.left = (panacekX-- + 'px');
+		}
+
+		else if (udalost.key === 'ArrowUp') {
+			panacek.src = 'obrazky/panacek-nahoru.png';
+			panacekY = panacekY - 4;
+			panacek.style.top = (panacekY-- + 'px');
+		}
+
+		else {
+			panacek.src = 'obrazky/panacek.png';
+			panacekY = panacekY + 4;
+			panacek.style.top = (panacekY++ + 'px');
+		}
+	}
 }
 
 if (score == 5) {
@@ -88,4 +83,3 @@ if (score == 5) {
 	document.querySelector("#zvukfanfara").play();
 	document.querySelector("#hudba").play();
 }
-

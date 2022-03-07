@@ -8,6 +8,7 @@ if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || pan
 
 // sem začni psát svůj program
 
+
 let panacekX = Math.floor((Math.random() * 1500) + 1);
 
 let panacekY = Math.floor((Math.random() * 600) + 1);
@@ -15,6 +16,8 @@ let minceX = Math.floor((Math.random() * 1500) + 1);
 let minceY = Math.floor((Math.random() * 600) + 1);
 
 let score = document.querySelector("#score");
+let skore = 0;
+skore = skore + 1;
 
 
 function pozicePanacek() {
@@ -34,24 +37,38 @@ function poziceMince() {
 
 poziceMince();
 pozicePanacek();
-let panacekSirka = 64;
-let panacekVyska = 70;
-let minceSirka = 36;
-let minceVyska = 36;
+let panacekSirka = 30;
+let panacekVyska = 35;
+let minceSirka = 10;
+let minceVyska = 10;
 
-if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-	score.textContent = '' + 1;
-	document.querySelector("#hudba").pause();
-	document.querySelector('#zvukmince').play();
-	document.querySelector("#hudba").play();
-	poziceMince();
-}
+function stiskKlavesy(udalost) {
+	console.log(udalost.key);
+	let panacek = document.querySelector('#panacek');
 
-else {
-	function stiskKlavesy(udalost) {
-		console.log(udalost.key);
-		let panacek = document.querySelector('#panacek');
 
+	if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
+
+		document.querySelector("#hudba").pause();
+		document.querySelector('#zvukmince').play();
+		document.querySelector("#hudba").play();
+		minceX = Math.floor((Math.random() * 1500) + 1);
+		minceY = Math.floor((Math.random() * 600) + 1);
+		document.querySelector('#mince').style.left = minceX + 'px';
+		document.querySelector('#mince').style.top = minceY + 'px';
+
+		score.textContent = skore++;
+		if (skore % 5 === 1) {
+			document.querySelector("#hudba").pause();
+			document.querySelector("#zvukfanfara").play();
+			document.querySelector("#hudba").play();
+		}
+
+
+	}
+
+
+	else {
 		if (udalost.key === 'ArrowRight') {
 			panacek.src = 'obrazky/panacek-vpravo.png';
 			panacekX = panacekX + 4;
@@ -76,10 +93,7 @@ else {
 			panacek.style.top = (panacekY++ + 'px');
 		}
 	}
+
 }
 
-if (score == 5) {
-	document.querySelector("#hudba").pause();
-	document.querySelector("#zvukfanfara").play();
-	document.querySelector("#hudba").play();
-}
+

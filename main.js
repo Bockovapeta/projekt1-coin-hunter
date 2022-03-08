@@ -7,61 +7,67 @@ if (!( panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || pan
 
 
 // sem začni psát svůj program
+/*
+function hraj() {
+	let hudba = document.querySelector('#hudba');
+	hudba.play();
+}
 
+*/
 
 let panacekX = Math.floor((Math.random() * 1500) + 1);
-
 let panacekY = Math.floor((Math.random() * 600) + 1);
 let minceX = Math.floor((Math.random() * 1500) + 1);
 let minceY = Math.floor((Math.random() * 600) + 1);
-
+let panacek = document.querySelector('#panacek');
+let mince = document.querySelector('#mince');
+let hudba = document.querySelector('#hudba');
 let score = document.querySelector("#score");
 let skore = 0;
 skore = skore + 1;
 
+let panacekSirka = panacek.naturalWidth;
+let panacekVyska = panacek.naturalHeight;
+let minceSirka = mince.naturalWidth;
+let minceVyska = mince.naturalHeight;
+
 
 function pozicePanacek() {
-
-
-	let pozicePanacek = document.querySelector('#panacek');
-	pozicePanacek.style.left = (panacekX + 'px');
-	pozicePanacek.style.top = (panacekY + 'px');
+	panacek.style.left = (panacekX + 'px');
+	panacek.style.top = (panacekY + 'px');
 }
 
 function poziceMince() {
-
-	let poziceMince = document.querySelector('#mince');
-	poziceMince.style.left = minceX + 'px';
-	poziceMince.style.top = minceY + 'px';
+	mince.style.left = minceX + 'px';
+	mince.style.top = minceY + 'px';
 }
 
 poziceMince();
 pozicePanacek();
-let panacekSirka = 30;
-let panacekVyska = 35;
-let minceSirka = 10;
-let minceVyska = 10;
+
+
 
 function stiskKlavesy(udalost) {
 	console.log(udalost.key);
-	let panacek = document.querySelector('#panacek');
+	hudba.play();
 
 
 	if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 
-		document.querySelector("#hudba").pause();
+		hudba.pause();
 		document.querySelector('#zvukmince').play();
-		document.querySelector("#hudba").play();
+		hudba.play();
 		minceX = Math.floor((Math.random() * 1500) + 1);
 		minceY = Math.floor((Math.random() * 600) + 1);
-		document.querySelector('#mince').style.left = minceX + 'px';
-		document.querySelector('#mince').style.top = minceY + 'px';
+		poziceMince();
 
 		score.textContent = skore++;
-		if (skore % 5 === 1) {
-			document.querySelector("#hudba").pause();
+
+		if (score.textContent == 5) {
+			hudba.pause();
 			document.querySelector("#zvukfanfara").play();
-			document.querySelector("#hudba").play();
+			hudba.play();
+			alert("Gratuluji. Vyhrál jsi, ale můžeš hrát dál :-) ");
 		}
 
 
@@ -94,6 +100,23 @@ function stiskKlavesy(udalost) {
 		}
 	}
 
+	if (panacekX <= 0) {
+		panacekX = 0;
+	}
+
+	if (panacekY <= 0) {
+		panacekY = 0;
+	}
+
+	if (panacekX >= (window.innerWidth) - panacekSirka) {
+		panacekX = window.innerWidth - panacekSirka;
+	}
+
+	if (panacekY >= (window.innerHeight) - panacekVyska) {
+		panacekY = window.innerHeight - panacekVyska;
+	}
+
 }
+
 
 
